@@ -1,4 +1,4 @@
-{% set version = "0.1.0" %}
+{% set version = "0.1.1" %}
 
 package:
   name: sigtool
@@ -6,11 +6,11 @@ package:
 
 source:
   url: https://github.com/thefloweringash/sigtool/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 8028bcee8dfd93b5a654d7effb53ac09a6406f16a1ff8caf1511b985d0d50aee
+  sha256: 74daccc37b301f8f0334e651377f2e87c5a1c6e7875c6c18a361d409c4748cc1
 
 build:
-  number: 1
-  skip: True  # [win]
+  number: 0
+  skip: true  # [win]
 
 requirements:
   build:
@@ -28,7 +28,7 @@ about:
   home: https://github.com/thefloweringash/sigtool
   license: MIT
   license_file: LICENSE
-  summary: 'A minimal multicall binary providing helpers for working with embedded signatures in Mach-O files.'
+  summary: A minimal multicall binary providing helpers for working with embedded signatures in Mach-O files.
 
 extra:
   recipe-maintainers:
