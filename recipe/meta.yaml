@@ -7,9 +7,11 @@ package:
 source:
   url: https://github.com/thefloweringash/sigtool/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 57d0fa47ebd800660be7263547279b7a019f4d944adc52e83736e4c5723c9e4b
+  patches:
+    - 0001-find-codesign_allocate-next-to-it.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
