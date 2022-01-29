@@ -16,7 +16,8 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}
+    - {{ compiler('cxx') }}                   # [not osx]
+    - clang_bootstrap_{{ target_platform }}   # [osx]
     - cmake
     - make
   host:
