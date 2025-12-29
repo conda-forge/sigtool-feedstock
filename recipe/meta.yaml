@@ -1,7 +1,7 @@
 {% set version = "0.1.3" %}
 
 package:
-  name: sigtool
+  name: sigtool-split
   version: {{ version }}
 
 source:
@@ -16,16 +16,65 @@ build:
 
 requirements:
   build:
-    - {{ compiler('cxx') }}                   # [not osx]
-    - clang_bootstrap_{{ target_platform }}   # [osx]
+    - {{ compiler('cxx') }}
+    - {{ stdlib('c') }}
     - cmake
     - make
   host:
     - openssl
 
-test:
-  commands:
-    - codesign -h
+outputs:
+  - name: libsigtool
+    files:
+      - lib/libsigtool*
+    requirements:
+      build:
+        - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
+        - cmake
+        - make
+      host:
+        - openssl
+    test:
+      commands:
+        - test -f ${PREFIX}/lib/libsigtool${SHLIB_EXT}
+
+  - name: sigtool-codesign
+    files:
+      - bin/sigtool-codesign
+    requirements:
+      build:
+        - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
+        - cmake
+        - make
+      host:
+        - openssl
+      run:
+        - {{ pin_subpackage("libsigtool", exact=True) }}
+    test:
+      commands:
+        - sigtool-codesign -h
+
+  - name: sigtool
+    files:
+      - bin/sigtool
+      - bin/codesign
+      - include/sigtool
+    requirements:
+      build:
+        - {{ compiler('cxx') }}
+        - {{ stdlib('c') }}
+        - cmake
+        - make
+      host:
+        - openssl
+      run:
+        - {{ pin_subpackage("libsigtool", exact=True) }}
+        - {{ pin_subpackage("sigtool-codesign", exact=True) }}
+    test:
+      commands:
+        - sigtool-codesign -h
 
 about:
   home: https://github.com/thefloweringash/sigtool
@@ -34,5 +83,6 @@ about:
   summary: A minimal multicall binary providing helpers for working with embedded signatures in Mach-O files.
 
 extra:
+  feedstock-name: sigtool
   recipe-maintainers:
     - isuruf
