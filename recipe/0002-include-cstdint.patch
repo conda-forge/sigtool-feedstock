@@ -1,0 +1,11 @@
+diff --git a/emit.h b/emit.h
+--- a/emit.h
++++ b/emit.h
+@@ -5,6 +5,7 @@
+ #include <vector>
+ #include <memory>
+ #include <arpa/inet.h>
+ #include <cmath>
++#include <cstdint>
+
+ namespace SigTool {

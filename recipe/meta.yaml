@@ -9,9 +9,10 @@ source:
   sha256: 462e7daf144740910dacadab1f1cfde154b405480cf7ec45b5d648f9d293851d
   patches:
     - 0001-find-codesign_allocate-next-to-it.patch
+    - 0002-include-cstdint.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
 
 requirements:
